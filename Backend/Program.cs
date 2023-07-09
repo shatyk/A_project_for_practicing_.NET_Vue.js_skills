@@ -2,9 +2,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Persistence;
+using Database;
 using System.Text;
-using VFDACHA_BACK.Models;
+using Backend.Models;
+using Backend.Interfaces.Jwt;
+using Backend.Interfaces;
+using Backend.Services.Jwt;
+using Backend.Services;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -12,11 +16,20 @@ builder.Services.AddDbContext<AppDbContext>(o =>
     o.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<AppDbContext>();
 
-/*JwtSettings jwtSettings = new JwtSettings();
-builder.Configuration.Bind(nameof(JwtSettings), jwtSettings);
-builder.Services.AddSingleton(jwtSettings);
+builder.Services.AddScoped<IAccessTokenService, AccessTokenService>();
+builder.Services.AddScoped<IAuthenticateService, AuthenticateService>();
+builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
+builder.Services.AddScoped<IRefreshTokenValidator, RefreshTokenValidator>();
+builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
-builder.Services.AddAuthorization();
+JwtSettings jwtSettings = new JwtSettings();
+RegisterInviteSecret registerInviteSecret = new RegisterInviteSecret();
+builder.Configuration.Bind(nameof(JwtSettings), jwtSettings);
+builder.Configuration.Bind(nameof(RegisterInviteSecret), registerInviteSecret);
+builder.Services.AddSingleton(jwtSettings);
+builder.Services.AddSingleton(registerInviteSecret);
+
 builder.Services.AddAuthentication(x =>
     {
         x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -37,10 +50,11 @@ builder.Services.AddAuthentication(x =>
             ValidAudience = jwtSettings.Audience,
             ClockSkew = TimeSpan.Zero
         };
-    });*/
+    });
+//builder.Services.AddAuthorization();
 
+builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
-
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -79,8 +93,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.UseAuthentication();
-//app.UseAuthorization();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

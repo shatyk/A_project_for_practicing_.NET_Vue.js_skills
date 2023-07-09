@@ -1,4 +1,4 @@
-﻿namespace VFDACHA_BACK.Models
+﻿namespace Backend.Models
 {
     public class JwtSettings
     {

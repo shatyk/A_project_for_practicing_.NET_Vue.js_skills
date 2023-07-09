@@ -10,6 +10,16 @@ namespace Database.Configuration
         {
             builder.ToTable(nameof(User), "public")
                 .HasKey(x => x.Id);
+
+            builder.Property(x => x.Password)
+            .HasColumnType("varchar(120)");
+
+            builder.Property(x => x.Username)
+                .HasColumnType("varchar(120)");
+
+            builder.HasMany(x => x.RefreshTokens)
+                .WithOne()
+                .HasForeignKey(x => x.UserId);
         }
     }
 }
