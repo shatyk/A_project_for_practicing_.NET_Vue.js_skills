@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VFDACHA-BACK", "VFDACHA-BACK\VFDACHA-BACK.csproj", "{1C0EA9BA-1A84-47A3-92B8-651836DEAB51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Backend", "Backend\Backend.csproj", "{1C0EA9BA-1A84-47A3-92B8-651836DEAB51}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common.Models", "Common.Models\Common.Models.csproj", "{979401D6-7A55-4FB2-A0E5-624CBBF6EDA7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{F93F3260-FEB9-48CB-895E-A835F66CA67C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{1C0EA9BA-1A84-47A3-92B8-651836DEAB51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1C0EA9BA-1A84-47A3-92B8-651836DEAB51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1C0EA9BA-1A84-47A3-92B8-651836DEAB51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{979401D6-7A55-4FB2-A0E5-624CBBF6EDA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{979401D6-7A55-4FB2-A0E5-624CBBF6EDA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{979401D6-7A55-4FB2-A0E5-624CBBF6EDA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{979401D6-7A55-4FB2-A0E5-624CBBF6EDA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F93F3260-FEB9-48CB-895E-A835F66CA67C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F93F3260-FEB9-48CB-895E-A835F66CA67C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F93F3260-FEB9-48CB-895E-A835F66CA67C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F93F3260-FEB9-48CB-895E-A835F66CA67C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
