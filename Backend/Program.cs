@@ -53,6 +53,8 @@ builder.Services.AddAuthentication(x =>
     });
 //builder.Services.AddAuthorization();
 
+builder.Services.AddScoped<ITagService, TagService>();
+
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

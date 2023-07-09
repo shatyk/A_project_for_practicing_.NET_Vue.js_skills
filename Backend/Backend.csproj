@@ -19,10 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="MapperProfiles\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Common.Models\Common.Models.csproj" />
     <ProjectReference Include="..\Database\Database.csproj" />
   </ItemGroup>
