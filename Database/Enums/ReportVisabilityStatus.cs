@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Database.Models
+namespace Database.Enums
 {
-    public class Tag
+    public enum ReportVisabilityStatus
     {
-        public int Id { get; set; }
-        public string Text { get; set; } = null!;
+        Hidden = 0,
+        Visible = 1
     }
 }

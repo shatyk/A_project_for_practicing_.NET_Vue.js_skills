@@ -25,7 +25,7 @@ namespace Backend.Controllers
         }
 
         [HttpPost]
-        public async Task<Guid> AddAsync([FromBody] CreateTagRequest request, CancellationToken cancellationToken)
+        public async Task<int> AddAsync([FromBody] CreateTagRequest request, CancellationToken cancellationToken)
         {
             return await _tagService.AddAsync(request, cancellationToken);
         }
@@ -37,7 +37,7 @@ namespace Backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task DeleteAsync([FromRoute] Guid id, CancellationToken cancellationToken)
+        public async Task DeleteAsync([FromRoute] int id, CancellationToken cancellationToken)
         {
             await _tagService.DeleteAsync(id, cancellationToken);
         }

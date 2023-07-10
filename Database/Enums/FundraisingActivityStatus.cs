@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Database.Models
+namespace Database.Enums
 {
-    public class Tag
+    public enum FundraisingActivityStatus
     {
-        public int Id { get; set; }
-        public string Text { get; set; } = null!;
+        Close = 0,
+        Open = 1    
     }
 }

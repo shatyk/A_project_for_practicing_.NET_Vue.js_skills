@@ -6,9 +6,7 @@ using System.Threading.Tasks;
 
 namespace Database.Models
 {
-    public class Tag
+    internal class ReportTag
     {
-        public int Id { get; set; }
-        public string Text { get; set; } = null!;
     }
 }

@@ -23,7 +23,7 @@ namespace Backend.Services
             return await Task.FromResult(tags.Select(_mapper.Map<Tag>));
         }
 
-        public async Task<Guid> AddAsync(CreateTagRequest request, CancellationToken cancellationToken)
+        public async Task<int> AddAsync(CreateTagRequest request, CancellationToken cancellationToken)
         {
             Database.Models.Tag tag = _mapper.Map<Database.Models.Tag>(request);
             await _appDbContext.Tags.AddAsync(tag, cancellationToken);
@@ -39,7 +39,7 @@ namespace Backend.Services
             await _appDbContext.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
+        public async Task DeleteAsync(int id, CancellationToken cancellationToken)
         {
             Database.Models.Tag? tag = await _appDbContext.Tags
                 .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);

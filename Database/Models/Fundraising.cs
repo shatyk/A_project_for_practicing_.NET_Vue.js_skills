@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Database.Models
 {
-    public class Tag
+    public class Fundraising
     {
-        public int Id { get; set; }
+        public long Id { get; set; }
+        public string Capture { get; set; } = null!;
         public string Text { get; set; } = null!;
+        public DateTime CreatedAt { get; set; }
+
     }
 }
