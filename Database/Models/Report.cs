@@ -14,14 +14,16 @@ namespace Database.Models
         public string Text { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
         public ReportVisabilityStatus VisabilityStatus { get; set; }
-        public long FundraisingId { get; set; }
+        public long? FundraisingId { get; set; }
 
         public Fundraising? Fundraising { get; set; }
         public IEnumerable<ReportTag> ReportTags { get; init; }
+        public IEnumerable<ReportContent> Contents { get; init; }
 
         public Report()
         {
             ReportTags = new HashSet<ReportTag>();
+            Contents = new HashSet<ReportContent>();
         }
     }
 }

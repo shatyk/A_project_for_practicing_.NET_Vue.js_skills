@@ -16,16 +16,14 @@ namespace Database.Configuration
             builder.ToTable(nameof(Fundraising), "public")
                 .HasKey(t => t.Id);
 
-            builder.Property(r => r.Capture)
-                .HasColumnType("text");
-
-            builder.Property(r => r.Text)
-                .HasColumnType("text");
-
             builder.HasMany(f => f.Reports)
                 .WithOne(r => r.Fundraising)
-                .HasForeignKey(r => r.FundraisingId);
+                .HasForeignKey(r => r.FundraisingId)
+                .OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasMany(f => f.Contents)
+                .WithOne()
+                .HasForeignKey(fc => fc.FundraisingId);
         }
     }
 }

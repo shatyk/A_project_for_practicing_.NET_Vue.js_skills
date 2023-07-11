@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace Database.Models
 {
-    public class ReportTag
+    public class ReportContent
     {
         public long ReportId { get; set; }
-        public int TagId { get; set; }
-
-        public Report? Report { get; set; }
-        public Tag? Tag { get; set; }
+        public int LanguageId { get; set; }
+        public string Capture { get; set; } = null!;
+        public string Text { get; set; } = null!;
     }
 }

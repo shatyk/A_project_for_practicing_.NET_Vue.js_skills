@@ -14,10 +14,7 @@ namespace Database.Configuration
         public void Configure(EntityTypeBuilder<ReportTag> builder)
         {
             builder.ToTable(nameof(ReportTag), "public")
-                .HasKey(rt => rt.Id);
-
-            builder.HasIndex(rt => new { rt.ReportId, rt.TagId })
-                .IsUnique();
+                .HasKey(p => new { p.ReportId, p.TagId });
         }
     }
 }

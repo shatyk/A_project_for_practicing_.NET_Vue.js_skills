@@ -25,6 +25,10 @@ namespace Database.Configuration
             builder.HasMany(r => r.ReportTags)
                 .WithOne(rt => rt.Report)
                 .HasForeignKey(rt => rt.ReportId);
+
+            builder.HasMany(r => r.Contents)
+                .WithOne()
+                .HasForeignKey(rc => rc.ReportId);
         }
     }
 }
