@@ -17,9 +17,13 @@ namespace Database.Configuration
                 .HasKey(t => t.Id);
 
             builder.Property(t => t.Text)
-                .HasColumnType("varchar(128)");
+                .HasColumnType("text");
 
             builder.HasIndex(t => t.Text).IsUnique();
+
+            builder.HasMany(r => r.ReportTags)
+                .WithOne(rt => rt.Tag)
+                .HasForeignKey(rt => rt.TagId);
         }
     }
 }

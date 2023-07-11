@@ -12,10 +12,10 @@ namespace Database.Configuration
                 .HasKey(x => x.Id);
 
             builder.Property(x => x.Password)
-            .HasColumnType("varchar(120)");
+                .HasColumnType("text");
 
             builder.Property(x => x.Username)
-                .HasColumnType("varchar(120)");
+                .HasColumnType("text");
 
             builder.HasMany(x => x.RefreshTokens)
                 .WithOne()

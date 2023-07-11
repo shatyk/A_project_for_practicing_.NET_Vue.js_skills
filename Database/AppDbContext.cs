@@ -9,6 +9,9 @@ namespace Database
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<RefreshToken> RefreshTokens { get; set; }
         public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<Fundraising> Fundraisings { get; set; }
+        public virtual DbSet<Report> Reports { get; set; }
+        public virtual DbSet<ReportTag> ReportTags { get; set; }     
 
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
@@ -19,6 +22,9 @@ namespace Database
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new RefreshTokenConfiguration());
             modelBuilder.ApplyConfiguration(new TagConfiguration());
+            modelBuilder.ApplyConfiguration(new FundraisingConfiguration());
+            modelBuilder.ApplyConfiguration(new ReportConfiguration());
+            modelBuilder.ApplyConfiguration(new ReportTagConfiguration());
         }
     }
 }

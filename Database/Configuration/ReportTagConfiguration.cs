@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace Database.Configuration
 {
-    public class RefreshTokenConfiguration : IEntityTypeConfiguration<RefreshToken>
+    public class ReportTagConfiguration : IEntityTypeConfiguration<ReportTag>
     {
-        public void Configure(EntityTypeBuilder<RefreshToken> builder)
+        public void Configure(EntityTypeBuilder<ReportTag> builder)
         {
-            builder.ToTable(nameof(RefreshToken), "public")
+            builder.ToTable(nameof(ReportTag), "public")
                 .HasKey(rt => rt.Id);
 
-            builder.Property(rt => rt.Token)
-                .HasColumnType("text");
+            builder.HasIndex(rt => new { rt.ReportId, rt.TagId })
+                .IsUnique();
         }
     }
 }
