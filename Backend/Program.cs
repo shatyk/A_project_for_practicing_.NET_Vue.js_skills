@@ -22,7 +22,6 @@ builder.Services.AddScoped<IRefreshTokenService, RefreshTokenService>();
 builder.Services.AddScoped<IRefreshTokenValidator, RefreshTokenValidator>();
 builder.Services.AddScoped<ITokenGenerator, TokenGenerator>();
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ILanguageCacheService, LanguageCacheService>();
 
 JwtSettings jwtSettings = new JwtSettings();
 RegisterInviteSecret registerInviteSecret = new RegisterInviteSecret();
@@ -54,6 +53,7 @@ builder.Services.AddAuthentication(x =>
     });
 //builder.Services.AddAuthorization();
 
+builder.Services.AddScoped<ILanguageCacheService, LanguageCacheService>();
 builder.Services.AddScoped<ITagService, TagService>();
 
 builder.Services.AddMemoryCache();
