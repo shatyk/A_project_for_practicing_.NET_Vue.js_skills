@@ -100,5 +100,25 @@ namespace Backend.Services
 
             return await Task.FromResult(languages);
         }
+
+        public async Task<int> GetLanguagesCountAsync()
+        {
+            IEnumerable<Language>? languages;
+            if (!_memoryCache.TryGetValue(LanguageConstants.LanguageCacheKey, out languages))
+            {
+                languages = _appDbContext.Languages.AsNoTracking().ToList();
+                if (languages.Any())
+                {
+                    _memoryCache.Set(LanguageConstants.LanguageCacheKey, languages,
+                            new MemoryCacheEntryOptions().SetAbsoluteExpiration(TimeSpan.FromHours(1)));
+                }
+                else
+                {
+                    throw new HttpRequestException("Langugage table empty, WTF?!", null, HttpStatusCode.NotFound);
+                }
+            }
+
+            return await Task.FromResult(languages.Count());
+        }
     }
 }

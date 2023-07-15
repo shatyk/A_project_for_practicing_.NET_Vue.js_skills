@@ -7,5 +7,6 @@ namespace Backend.Interfaces
         Task<int> GetLanguageIdAsync(string name);
         Task<string> GetLanguageNameAsync(int id);
         Task<IEnumerable<Language>> GetAllLanguagesAsync();
+        Task<int> GetLanguagesCountAsync();
     }
 }

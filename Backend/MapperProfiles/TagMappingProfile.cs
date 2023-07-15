@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Backend.Models.Responses;
 using Backend.Models.Requests;
 using Database.Models;
 
@@ -8,7 +9,7 @@ namespace Backend.MapperProfiles
     {
         public TagMappingProfile()
         {
-            CreateMap<Tag, Common.Models.Tag>();
+            CreateMap<Tag, TagResponse>();
             CreateMap<CreateTagRequest, Tag>();
             CreateMap<UpdateTagRequest, Tag>();
         }

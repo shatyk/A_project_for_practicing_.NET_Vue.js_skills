@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Common.Models;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
+using Backend.Models.Responses;
 
 namespace Backend.Controllers
 {
@@ -19,7 +20,7 @@ namespace Backend.Controllers
         public TagsController(ITagService tagService) => _tagService = tagService;
 
         [HttpGet]
-        public async Task<IEnumerable<Tag>> GetAllAsync()
+        public async Task<IEnumerable<TagResponse>> GetAllAsync()
         {
             return await _tagService.GetAllAsync();
         }

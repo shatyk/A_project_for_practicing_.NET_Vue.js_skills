@@ -55,6 +55,7 @@ builder.Services.AddAuthentication(x =>
 
 builder.Services.AddScoped<ILanguageCacheService, LanguageCacheService>();
 builder.Services.AddScoped<ITagService, TagService>();
+builder.Services.AddScoped<IFundraisingService, FundraisingService>();
 
 builder.Services.AddMemoryCache();
 

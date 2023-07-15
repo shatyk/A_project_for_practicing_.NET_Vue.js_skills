@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Backend.Interfaces;
 using Backend.Models.Requests;
+using Backend.Models.Responses;
 using Common.Models;
 using Database;
 using Microsoft.EntityFrameworkCore;
@@ -16,11 +17,11 @@ namespace Backend.Services
         public TagService(AppDbContext appDbContext, IMapper mapper) =>
             (_appDbContext, _mapper) = (appDbContext, mapper);
 
-        public async Task<IEnumerable<Tag>> GetAllAsync()
+        public async Task<IEnumerable<TagResponse>> GetAllAsync()
         {
             IEnumerable<Database.Models.Tag> tags = _appDbContext.Tags.AsNoTracking().AsEnumerable();
 
-            return await Task.FromResult(tags.Select(_mapper.Map<Tag>));
+            return await Task.FromResult(tags.Select(_mapper.Map<TagResponse>));
         }
 
         public async Task<int> AddAsync(CreateTagRequest request, CancellationToken cancellationToken)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Common.Models
 {
-    public class Language
+    public class LanguageResponse
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
