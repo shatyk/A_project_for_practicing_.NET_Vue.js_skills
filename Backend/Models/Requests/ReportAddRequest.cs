@@ -7,7 +7,7 @@ namespace Backend.Models.Requests
         public FundraisingVisabilityStatus VisabilityStatus { get; set; }
         public IEnumerable<ReportContentAddRequest> Contents { get; init; }
         public IEnumerable<int> TagsId { get; set; }
-        public long FundraisingId { get; set; }
+        public long? FundraisingId { get; set; }
 
         public ReportAddRequest()
         {

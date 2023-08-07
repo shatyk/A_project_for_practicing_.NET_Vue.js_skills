@@ -16,12 +16,6 @@ namespace Database.Configuration
             builder.ToTable(nameof(Report), "public")
                 .HasKey(r => r.Id);
 
-            builder.Property(r => r.Capture)
-                .HasColumnType("text");
-
-            builder.Property(r => r.Text)
-                .HasColumnType("text");
-
             builder.HasMany(r => r.ReportTags)
                 .WithOne(rt => rt.Report)
                 .HasForeignKey(rt => rt.ReportId);

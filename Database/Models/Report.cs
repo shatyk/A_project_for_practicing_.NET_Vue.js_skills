@@ -10,8 +10,6 @@ namespace Database.Models
     public class Report
     {
         public long Id { get; set; }
-        public string Capture { get; set; } = null!;
-        public string Text { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
         public ReportVisabilityStatus VisabilityStatus { get; set; }
         public long? FundraisingId { get; set; }

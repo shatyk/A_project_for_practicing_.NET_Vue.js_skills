@@ -6,9 +6,9 @@ namespace Backend.Models.Responses
     {
         public long Id { get; set; }
         public DateTime CreatedAt { get; set; }
-        public FundraisingVisabilityStatus VisabilityStatus { get; set; }
+        public ReportVisabilityStatus VisabilityStatus { get; set; }
         public IEnumerable<ReportContentResponse> Contents { get; init; }
-        public long FundraisingId { get; set; }
+        public long? FundraisingId { get; set; }
         public IEnumerable<int> TagsId { get; set; }
 
         public ReportGetOneResponse()

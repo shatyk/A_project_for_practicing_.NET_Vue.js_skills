@@ -7,7 +7,12 @@ namespace Backend.Models.Requests
     {
         public FundraisingActivityStatus ActivityStatus { get; set; }
         public FundraisingVisabilityStatus VisabilityStatus { get; set; }
-        public IEnumerable<FundraisingContentAddRequest> Contents { get; init; }      
+        public IEnumerable<FundraisingContentAddRequest> Contents { get; init; }
+
+        public FundraisingAddRequest()
+        {
+            Contents = new HashSet<FundraisingContentAddRequest>();
+        }
     }
 
     public class FundraisingContentAddRequest
