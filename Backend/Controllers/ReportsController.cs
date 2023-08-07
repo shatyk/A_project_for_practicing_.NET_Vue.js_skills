@@ -34,5 +34,11 @@ namespace Backend.Controllers
         {
             return await _reportService.AddAsync(request, cancellationToken);
         }
+
+        [HttpPatch]
+        public async Task UpdateAsync([FromBody] ReportUpdateRequest request, CancellationToken cancellationToken)
+        {
+            await _reportService.UpdateAsync(request, cancellationToken);
+        }
     }
 }

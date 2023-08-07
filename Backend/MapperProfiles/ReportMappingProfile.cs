@@ -30,13 +30,34 @@ namespace Backend.MapperProfiles
                 .ForMember(r => r.ReportTags, conf => conf
                     .MapFrom(rr => CreateReportTags(rr.TagsId)));
             CreateMap<ReportContentAddRequest, ReportContent>();
+
+            CreateMap<ReportUpdateRequest, Report>()
+                .ForMember(r => r.ReportTags, conf => conf
+                    .MapFrom(rr => CreateReportTags(rr.TagsId, rr.Id)));
+            CreateMap<ReportContentUpdateRequest, ReportContent>();
         }
 
-        private static IEnumerable<ReportTag> CreateReportTags(IEnumerable<int> ids)
+        private static IEnumerable<ReportTag> CreateReportTags(IEnumerable<int> tagsId, long reportId)
         {
             IList<ReportTag> reportTags = new List<ReportTag>();
             
-            foreach (int id in ids)
+            foreach (int id in tagsId)
+            {
+                reportTags.Add(new ReportTag()
+                {
+                    TagId = id,
+                    ReportId = reportId
+                });
+            }
+
+            return reportTags;
+        }
+
+        private static IEnumerable<ReportTag> CreateReportTags(IEnumerable<int> tagsId)
+        {
+            IList<ReportTag> reportTags = new List<ReportTag>();
+
+            foreach (int id in tagsId)
             {
                 reportTags.Add(new ReportTag()
                 {

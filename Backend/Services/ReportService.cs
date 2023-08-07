@@ -66,7 +66,42 @@ namespace Backend.Services
 
         public async Task UpdateAsync(ReportUpdateRequest request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            IEnumerable<ReportTag> reportTagsExisting = _appDbContext.ReportTags
+                .Where(r => r.ReportId == request.Id);
+
+            Report report = _mapper.Map<Report>(request);
+            int languagesCount = await _languageCacheService.GetLanguagesCountAsync();
+            if (report.Contents.Count() != languagesCount)
+            {
+                throw new HttpRequestException($"Are you DURBECEL? We have {languagesCount} languages, send me Contents for each language!", null, HttpStatusCode.BadRequest);
+            }
+     
+            foreach (ReportTag reportTagExisting in reportTagsExisting)
+            {
+                if (!report.ReportTags.Contains(reportTagExisting))
+                {
+                    _appDbContext.ReportTags.Remove(reportTagExisting);
+                }
+            }
+            foreach (ReportTag reportTagRequest in report.ReportTags)
+            {
+                if (!reportTagsExisting.Contains(reportTagRequest))
+                {
+                    await _appDbContext.ReportTags.AddAsync(reportTagRequest, cancellationToken);
+                }
+            }
+
+            _appDbContext.Reports.Attach(report);
+
+            _appDbContext.Entry(report).Property(r => r.VisabilityStatus).IsModified = true;
+            _appDbContext.Entry(report).Property(r => r.FundraisingId).IsModified = true;
+            foreach (ReportContent content in report.Contents)
+            {
+                _appDbContext.Entry(content).Property(c => c.Capture).IsModified = true;
+                _appDbContext.Entry(content).Property(c => c.Text).IsModified = true;
+            }
+
+            await _appDbContext.SaveChangesAsync(cancellationToken);            
         }
 
         public async Task DeleteAsync(long id, CancellationToken cancellationToken)
