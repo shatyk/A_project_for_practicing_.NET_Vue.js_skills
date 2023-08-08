@@ -106,7 +106,16 @@ namespace Backend.Services
 
         public async Task DeleteAsync(long id, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            Report? report = await _appDbContext.Reports.AsNoTracking()
+                .FirstOrDefaultAsync(f => f.Id == id, cancellationToken);
+
+            if (report is null)
+            {
+                throw new HttpRequestException("Can't find report! How do you think I should delete a non-existent object? Сompletely crazy man.", null, HttpStatusCode.BadRequest);
+            }
+
+            _appDbContext.Reports.Remove(report);
+            await _appDbContext.SaveChangesAsync(cancellationToken);
         }
     }
 }

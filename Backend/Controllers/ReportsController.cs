@@ -40,5 +40,11 @@ namespace Backend.Controllers
         {
             await _reportService.UpdateAsync(request, cancellationToken);
         }
+
+        [HttpDelete("{id}")]
+        public async Task DeleteAsync([FromRoute] long id, CancellationToken cancellationToken)
+        {
+            await _reportService.DeleteAsync(id, cancellationToken);
+        }
     }
 }
