@@ -6,6 +6,7 @@ namespace Backend.Interfaces
     public interface IFundraisingService
     {
         Task<IEnumerable<FundraisingGetAllResponse>> GetAllAsync();
+        Task<IEnumerable<FundraisingGetAllCapturesResponse>> GetAllCapturesAsync();
         Task<FundraisingGetOneResponse> GetAsync(long id);
         Task<long> AddAsync(FundraisingAddRequest request, CancellationToken cancellationToken);
         Task UpdateAsync(FundraisingUpdateRequest request, CancellationToken cancellationToken);

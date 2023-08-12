@@ -33,6 +33,16 @@ namespace Backend.Services
             return await Task.FromResult(fundraisings.Select(_mapper.Map<FundraisingGetAllResponse>));
         }
 
+        public async Task<IEnumerable<FundraisingGetAllCapturesResponse>> GetAllCapturesAsync()
+        {
+            int uaLanguageId = await _languageCacheService.GetLanguageIdAsync(LanguageConstants.LanguageNameUA);
+            IEnumerable<Fundraising> fundraisings = _appDbContext.Fundraisings.AsNoTracking()
+                .Include(f => f.Contents
+                    .Where(c => c.LanguageId == uaLanguageId));
+
+            return await Task.FromResult(fundraisings.Select(_mapper.Map<FundraisingGetAllCapturesResponse>));
+        }
+
         public async Task<FundraisingGetOneResponse> GetAsync(long id)
         {
             Fundraising? fundraising = _appDbContext.Fundraisings.AsNoTracking()

@@ -27,6 +27,12 @@ namespace Backend.Controllers
             return await _fundraisingService.GetAllAsync();
         }
 
+        [HttpGet("captures")]
+        public async Task<IEnumerable<FundraisingGetAllCapturesResponse>> GetAllCapturesAsync()
+        {
+            return await _fundraisingService.GetAllCapturesAsync();
+        }
+
         [HttpGet("{id}")]
         public async Task<FundraisingGetOneResponse> GetAsync([FromRoute] long id)
         {
