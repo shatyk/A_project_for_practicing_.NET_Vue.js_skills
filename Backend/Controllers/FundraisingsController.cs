@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using Backend.Interfaces;
+using Backend.Models;
 
 namespace Backend.Controllers
 {
@@ -22,9 +23,13 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<FundraisingGetAllResponse>> GetAllAsync()
+        public async Task<PagedList<FundraisingGetAllResponse>> GetAllAsync(
+            [FromQuery] string? serachCaptureTerm,
+            [FromQuery] string? sortDateOrder,
+            [FromQuery] int page,
+            [FromQuery] int pageSize)
         {
-            return await _fundraisingService.GetAllAsync();
+            return await _fundraisingService.GetAllAsync(serachCaptureTerm, sortDateOrder, page, pageSize);
         }
 
         [HttpGet("captures")]

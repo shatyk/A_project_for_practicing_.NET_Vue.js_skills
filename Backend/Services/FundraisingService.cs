@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Backend.Constants;
 using Backend.Interfaces;
+using Backend.Models;
 using Backend.Models.Requests;
 using Backend.Models.Responses;
 using Database;
@@ -23,14 +24,37 @@ namespace Backend.Services
             _languageCacheService = languageCacheService;
         }
 
-        public async Task<IEnumerable<FundraisingGetAllResponse>> GetAllAsync()
+        public async Task<PagedList<FundraisingGetAllResponse>> GetAllAsync(
+            string? serachCaptureTerm, 
+            string? sortDateOrder,
+            int page, 
+            int pageSize)
         {
+
             int uaLanguageId = await _languageCacheService.GetLanguageIdAsync(LanguageConstants.LanguageNameUA);
-            IEnumerable<Fundraising> fundraisings = _appDbContext.Fundraisings.AsNoTracking()
+            IQueryable<Fundraising> fundraisings = _appDbContext.Fundraisings.AsNoTracking()
                 .Include(f => f.Contents
                     .Where(c => c.LanguageId == uaLanguageId));
 
-            return await Task.FromResult(fundraisings.Select(_mapper.Map<FundraisingGetAllResponse>));
+            if (!string.IsNullOrWhiteSpace(serachCaptureTerm))
+            {
+                fundraisings = fundraisings.Where(f => f.Contents.FirstOrDefault()!
+                    .Capture.ToLower().Contains(serachCaptureTerm.ToLower()));
+            }
+
+            if (sortDateOrder?.ToLower() == "desc") 
+            {
+                fundraisings = fundraisings.OrderByDescending(f => f.CreatedAt);
+            } 
+            else
+            {
+                fundraisings = fundraisings.OrderBy(f => f.CreatedAt);
+            }
+
+            PagedList<FundraisingGetAllResponse> pagedListResult = await PagedList<FundraisingGetAllResponse>
+                .CreateAsync(fundraisings.Select(f => _mapper.Map<FundraisingGetAllResponse>(f)), page, pageSize);
+
+            return await Task.FromResult(pagedListResult);
         }
 
         public async Task<IEnumerable<FundraisingGetAllCapturesResponse>> GetAllCapturesAsync()
