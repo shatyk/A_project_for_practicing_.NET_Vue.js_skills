@@ -97,7 +97,7 @@ namespace Backend.Services
             _appDbContext.Entry(report).Property(r => r.FundraisingId).IsModified = true;
             foreach (ReportContent content in report.Contents)
             {
-                _appDbContext.Entry(content).Property(c => c.Capture).IsModified = true;
+                _appDbContext.Entry(content).Property(c => c.Caption).IsModified = true;
                 _appDbContext.Entry(content).Property(c => c.Text).IsModified = true;
             }
 

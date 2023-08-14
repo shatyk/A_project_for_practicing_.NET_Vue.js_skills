@@ -7,11 +7,11 @@ namespace Backend.Interfaces
     public interface IFundraisingService
     {
         Task<PagedList<FundraisingGetAllResponse>> GetAllAsync(
-            string? serachCaptureTerm,
+            string? searchCaptionTerm,
             string? sortDateOrder,
             int page,
             int pageSize);
-        Task<IEnumerable<FundraisingGetAllCapturesResponse>> GetAllCapturesAsync();
+        Task<IEnumerable<FundraisingGetAllCaptionsResponse>> GetAllCaptionssAsync();
         Task<FundraisingGetOneResponse> GetAsync(long id);
         Task<long> AddAsync(FundraisingAddRequest request, CancellationToken cancellationToken);
         Task UpdateAsync(FundraisingUpdateRequest request, CancellationToken cancellationToken);

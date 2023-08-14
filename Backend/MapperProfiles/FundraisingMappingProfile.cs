@@ -10,15 +10,15 @@ namespace Backend.MapperProfiles
         public FundraisingMappingProfile()
         {
             CreateMap<Fundraising, FundraisingGetAllResponse>()
-                .ForMember(fr => fr.ContentUaCapture, conf => conf
+                .ForMember(fr => fr.ContentUaCaption, conf => conf
                     .MapFrom(f => f.Contents
-                        .Select(c => c.Capture)
+                        .Select(c => c.Caption)
                             .FirstOrDefault()));
 
-            CreateMap<Fundraising, FundraisingGetAllCapturesResponse>()
-                .ForMember(fr => fr.ContentUaCapture, conf => conf
+            CreateMap<Fundraising, FundraisingGetAllCaptionsResponse>()
+                .ForMember(fr => fr.ContentUaCaption, conf => conf
                     .MapFrom(f => f.Contents
-                        .Select(c => c.Capture)
+                        .Select(c => c.Caption)
                             .FirstOrDefault()));
 
             CreateMap<Fundraising, FundraisingGetOneResponse>();

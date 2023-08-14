@@ -10,7 +10,7 @@ namespace Database.Models
     {
         public long ReportId { get; set; }
         public int LanguageId { get; set; }
-        public string Capture { get; set; } = null!;
+        public string Caption { get; set; } = null!;
         public string Text { get; set; } = null!;
     }
 }

@@ -24,18 +24,18 @@ namespace Backend.Controllers
 
         [HttpGet]
         public async Task<PagedList<FundraisingGetAllResponse>> GetAllAsync(
-            [FromQuery] string? serachCaptureTerm,
+            [FromQuery] string? searchCaptionTerm,
             [FromQuery] string? sortDateOrder,
             [FromQuery] int page,
             [FromQuery] int pageSize)
         {
-            return await _fundraisingService.GetAllAsync(serachCaptureTerm, sortDateOrder, page, pageSize);
+            return await _fundraisingService.GetAllAsync(searchCaptionTerm, sortDateOrder, page, pageSize);
         }
 
-        [HttpGet("captures")]
-        public async Task<IEnumerable<FundraisingGetAllCapturesResponse>> GetAllCapturesAsync()
+        [HttpGet("captions")]
+        public async Task<IEnumerable<FundraisingGetAllCaptionsResponse>> GetAllCaptionsAsync()
         {
-            return await _fundraisingService.GetAllCapturesAsync();
+            return await _fundraisingService.GetAllCaptionssAsync();
         }
 
         [HttpGet("{id}")]

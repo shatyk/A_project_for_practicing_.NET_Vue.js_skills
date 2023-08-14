@@ -7,7 +7,7 @@ namespace Backend.Models.Responses
         public long Id { get; set; }
         public DateTime CreatedAt { get; set; }
         public ReportVisabilityStatus VisabilityStatus { get; set; }
-        public string ContentUaCapture { get; set; } = null!;
-        public string FundraisingContentUaCapture { get; set; } = null!;
+        public string ContentUaCaption { get; set; } = null!;
+        public string FundraisingContentUaCaption { get; set; } = null!;
     }
 }

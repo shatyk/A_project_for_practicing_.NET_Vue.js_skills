@@ -11,13 +11,13 @@ namespace Backend.MapperProfiles
         public ReportMappingProfile()
         {
             CreateMap<Report, ReportGetAllResponse>()
-                .ForMember(rr => rr.ContentUaCapture, conf => conf
+                .ForMember(rr => rr.ContentUaCaption, conf => conf
                     .MapFrom(r => r.Contents
-                        .Select(c => c.Capture)
+                        .Select(c => c.Caption)
                             .FirstOrDefault()))
-                .ForMember(rr => rr.FundraisingContentUaCapture, conf => conf
+                .ForMember(rr => rr.FundraisingContentUaCaption, conf => conf
                     .MapFrom(r => r.Fundraising!.Contents
-                        .Select(c => c.Capture)
+                        .Select(c => c.Caption)
                             .FirstOrDefault()));
 
             CreateMap<Report, ReportGetOneResponse>()

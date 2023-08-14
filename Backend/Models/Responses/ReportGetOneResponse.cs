@@ -20,7 +20,7 @@ namespace Backend.Models.Responses
 
     public class ReportContentResponse
     {
-        public string Capture { get; set; } = null!;
+        public string Caption { get; set; } = null!;
         public string Text { get; set; } = null!;
         public int LanguageId { get; set; }
     }

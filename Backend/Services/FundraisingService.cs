@@ -25,7 +25,7 @@ namespace Backend.Services
         }
 
         public async Task<PagedList<FundraisingGetAllResponse>> GetAllAsync(
-            string? serachCaptureTerm, 
+            string? searchCaptionTerm, 
             string? sortDateOrder,
             int page, 
             int pageSize)
@@ -36,10 +36,10 @@ namespace Backend.Services
                 .Include(f => f.Contents
                     .Where(c => c.LanguageId == uaLanguageId));
 
-            if (!string.IsNullOrWhiteSpace(serachCaptureTerm))
+            if (!string.IsNullOrWhiteSpace(searchCaptionTerm))
             {
                 fundraisings = fundraisings.Where(f => f.Contents.FirstOrDefault()!
-                    .Capture.ToLower().Contains(serachCaptureTerm.ToLower()));
+                    .Caption.ToLower().Contains(searchCaptionTerm.ToLower()));
             }
 
             if (sortDateOrder?.ToLower() == "desc") 
@@ -57,14 +57,14 @@ namespace Backend.Services
             return await Task.FromResult(pagedListResult);
         }
 
-        public async Task<IEnumerable<FundraisingGetAllCapturesResponse>> GetAllCapturesAsync()
+        public async Task<IEnumerable<FundraisingGetAllCaptionsResponse>> GetAllCaptionssAsync()
         {
             int uaLanguageId = await _languageCacheService.GetLanguageIdAsync(LanguageConstants.LanguageNameUA);
             IEnumerable<Fundraising> fundraisings = _appDbContext.Fundraisings.AsNoTracking()
                 .Include(f => f.Contents
                     .Where(c => c.LanguageId == uaLanguageId));
 
-            return await Task.FromResult(fundraisings.Select(_mapper.Map<FundraisingGetAllCapturesResponse>));
+            return await Task.FromResult(fundraisings.Select(_mapper.Map<FundraisingGetAllCaptionsResponse>));
         }
 
         public async Task<FundraisingGetOneResponse> GetAsync(long id)
@@ -103,7 +103,7 @@ namespace Backend.Services
             _appDbContext.Entry(fundraising).Property(f => f.VisabilityStatus).IsModified = true;
             foreach (FundraisingContent content in fundraising.Contents)
             {
-                _appDbContext.Entry(content).Property(c => c.Capture).IsModified = true;
+                _appDbContext.Entry(content).Property(c => c.Caption).IsModified = true;
                 _appDbContext.Entry(content).Property(c => c.Text).IsModified = true;
             }
             await _appDbContext.SaveChangesAsync(cancellationToken);

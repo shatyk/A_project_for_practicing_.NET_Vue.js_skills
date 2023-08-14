@@ -16,7 +16,7 @@ namespace Database.Configuration
             builder.ToTable(nameof(ReportContent), "public")
                 .HasKey(p => new { p.ReportId, p.LanguageId });
 
-            builder.Property(r => r.Capture)
+            builder.Property(r => r.Caption)
                 .HasColumnType("text");
 
             builder.Property(r => r.Text)

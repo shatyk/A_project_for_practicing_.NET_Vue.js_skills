@@ -8,6 +8,6 @@ namespace Backend.Models.Responses
         public DateTime CreatedAt { get; set; }
         public FundraisingActivityStatus ActivityStatus { get; set; }
         public FundraisingVisabilityStatus VisabilityStatus { get; set; }
-        public string ContentUaCapture { get; set; } = null!;
+        public string ContentUaCaption { get; set; } = null!;
     }
 }
