@@ -24,12 +24,12 @@ namespace Backend.Controllers
 
         [HttpGet]
         public async Task<PagedList<FundraisingGetAllResponse>> GetAllAsync(
-            [FromQuery] string? searchCaptionTerm,
+            [FromQuery] string? searchCaption,
             [FromQuery] string? sortDateOrder,
             [FromQuery] int page,
             [FromQuery] int pageSize)
         {
-            return await _fundraisingService.GetAllAsync(searchCaptionTerm, sortDateOrder, page, pageSize);
+            return await _fundraisingService.GetAllAsync(searchCaption, sortDateOrder, page, pageSize);
         }
 
         [HttpGet("captions")]

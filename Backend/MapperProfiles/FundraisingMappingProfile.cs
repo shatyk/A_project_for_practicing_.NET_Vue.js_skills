@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Backend.Models;
 using Backend.Models.Requests;
 using Backend.Models.Responses;
 using Database.Models;
@@ -19,7 +20,7 @@ namespace Backend.MapperProfiles
                 .ForMember(fr => fr.ContentUaCaption, conf => conf
                     .MapFrom(f => f.Contents
                         .Select(c => c.Caption)
-                            .FirstOrDefault()));
+                            .FirstOrDefault()));           
 
             CreateMap<Fundraising, FundraisingGetOneResponse>();
             CreateMap<FundraisingContent, FundraisingContentResponse>();

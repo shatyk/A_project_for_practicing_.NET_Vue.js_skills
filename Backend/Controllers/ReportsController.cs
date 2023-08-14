@@ -1,4 +1,5 @@
 ﻿using Backend.Interfaces;
+using Backend.Models;
 using Backend.Models.Requests;
 using Backend.Models.Responses;
 using Microsoft.AspNetCore.Http;
@@ -18,9 +19,14 @@ namespace Backend.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<ReportGetAllResponse>> GetAllAsync()
+        public async Task<PagedList<ReportGetAllResponse>> GetAllAsync(
+            [FromQuery] string? searchCaption,
+            [FromQuery] long? searchFundraisingId,
+            [FromQuery] string? sortDateOrder,
+            [FromQuery] int page,
+            [FromQuery] int pageSize)
         {
-            return await _reportService.GetAllAsync();
+            return await _reportService.GetAllAsync(searchCaption, searchFundraisingId, sortDateOrder, page, pageSize);
         }
 
         [HttpGet("{id}")]

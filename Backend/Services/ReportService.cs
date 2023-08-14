@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Components;
 using Database.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Net;
+using Backend.Models;
 
 namespace Backend.Services
 {
@@ -24,18 +25,46 @@ namespace Backend.Services
             _languageCacheService = languageCacheService;
         }
 
-        public async Task<IEnumerable<ReportGetAllResponse>> GetAllAsync()
+        public async Task<PagedList<ReportGetAllResponse>> GetAllAsync(
+            string? searchCaptionTerm,
+            long? searchFundraisingIdTerm,
+            string? sortDateOrder,
+            int page,
+            int pageSize)
         {
             int uaLanguageId = await _languageCacheService.GetLanguageIdAsync(LanguageConstants.LanguageNameUA);
 
-            IEnumerable<Report> reports = _appDbContext.Reports.AsNoTracking()
+            IQueryable<Report> reports = _appDbContext.Reports.AsNoTracking()
                 .Include(r => r.Contents
                     .Where(c => c.LanguageId == uaLanguageId))
                 .Include(r => r.Fundraising!)
                 .ThenInclude(f => f.Contents
                     .Where(c => c.LanguageId == uaLanguageId));
 
-            return await Task.FromResult(reports.Select(_mapper.Map<ReportGetAllResponse>));
+            if (searchFundraisingIdTerm is not null)
+            {
+                reports = reports.Where(f => f.FundraisingId == searchFundraisingIdTerm);
+            }
+            
+            if (!string.IsNullOrWhiteSpace(searchCaptionTerm))
+            {
+                reports = reports.Where(f => f.Contents.FirstOrDefault()!
+                    .Caption.ToLower().Contains(searchCaptionTerm.ToLower()));
+            }
+
+            if (sortDateOrder?.ToLower() == "desc")
+            {
+                reports = reports.OrderByDescending(f => f.CreatedAt);
+            }
+            else
+            {
+                reports = reports.OrderBy(f => f.CreatedAt);
+            }
+
+            PagedList<ReportGetAllResponse> pagedListResult = await PagedList<ReportGetAllResponse>
+                .CreateAsync(reports.Select(f => _mapper.Map<ReportGetAllResponse>(f)), page, pageSize);
+
+            return await Task.FromResult(pagedListResult);
         }
 
         public async Task<ReportGetOneResponse> GetAsync(long id)
