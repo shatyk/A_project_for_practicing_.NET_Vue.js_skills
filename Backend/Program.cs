@@ -1,3 +1,4 @@
+using System.Net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -92,6 +93,18 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 WebApplication app = builder.Build();
+
+/*
+using (IServiceScope container = app.Services.CreateScope())
+{
+    AppDbContext? appDbContext = container.ServiceProvider.GetService<AppDbContext>();
+    IEnumerable<string> pendingMigrations = appDbContext!.Database.GetPendingMigrations();
+    if (pendingMigrations.Any())
+    {
+        appDbContext.Database.Migrate();
+    }
+}
+*/
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
