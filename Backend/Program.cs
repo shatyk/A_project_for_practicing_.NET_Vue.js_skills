@@ -5,11 +5,14 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Database;
 using System.Text;
+using Backend;
 using Backend.Models;
 using Backend.Interfaces.Jwt;
 using Backend.Interfaces;
 using Backend.Services.Jwt;
 using Backend.Services;
+using Grpc.Net.Client;
+using GrpcClient;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -58,6 +61,16 @@ builder.Services.AddScoped<ILanguageCacheService, LanguageCacheService>();
 builder.Services.AddScoped<ITagService, TagService>();
 builder.Services.AddScoped<IFundraisingService, FundraisingService>();
 builder.Services.AddScoped<IReportService, ReportService>();
+
+builder.Services.AddGrpc(opt =>
+{
+    opt.EnableDetailedErrors = true;
+    opt.MaxReceiveMessageSize = null;
+});
+builder.Services.AddGrpcClient<Greeter.GreeterClient>(o =>
+{
+    o.Address = new Uri("http://localhost:7042");
+});
 
 builder.Services.AddMemoryCache();
 
