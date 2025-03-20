@@ -1,5 +1,6 @@
-﻿using GrpcClient;
+﻿using Backend.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using vfdacha;
 
 namespace Backend.Controllers;
 
@@ -7,17 +8,28 @@ namespace Backend.Controllers;
 [ApiController]
 public class GrpcTestingController : ControllerBase
 {
-    private readonly Greeter.GreeterClient _greeterClient; 
-        
-    public GrpcTestingController(Greeter.GreeterClient greeterClient)
+    private readonly IGrpcTestingService _grpcTestingService;
+    
+    public GrpcTestingController(IGrpcTestingService grpcTestingService)
     {
-        _greeterClient = greeterClient;
+        _grpcTestingService = grpcTestingService;
     }
     
-    [HttpGet]
-    public async Task<string> GetGreeter()
+    [HttpGet("unary/{request}")]
+    public async Task<bool> UnaryAsync([FromRoute] bool request)
     {
-        return (await _greeterClient.SayHelloAsync(
-            new HelloRequest { Name = "GreeterClient" })).Message;
+        return await _grpcTestingService.UnaryAsync(request);
+    }
+    
+    [HttpGet("server-streaming/{request}")]
+    public async Task<string> ServerStreamingAsync([FromRoute] bool request)
+    {
+        return await _grpcTestingService.ServerStreamingAsync(request);
+    }
+    
+    [HttpGet("client-streaming/{request}")]
+    public async Task<bool> ClientStreamingAsync([FromRoute] bool request)
+    {
+        return await _grpcTestingService.ClientStreamingAsync(request);
     }
 }

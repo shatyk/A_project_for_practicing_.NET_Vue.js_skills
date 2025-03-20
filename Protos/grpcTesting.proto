@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "vfdacha";
+
+package grpc;
+
+service GrpcService {
+  rpc Unary (GrpcRequest) returns (GrpcResponse);
+  rpc ServerStream (GrpcRequest) returns (stream GrpcResponse);
+  rpc ClientStream (stream GrpcRequest) returns (GrpcResponse);
+}
+
+message GrpcRequest {
+  bool value = 1;
+}
+
+message GrpcResponse {
+  bool value = 1;
+}
